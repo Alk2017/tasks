@@ -1,5 +1,5 @@
-from random import randrange
 import time
+from random import randrange
 
 
 def insert_sort(ar):
@@ -69,8 +69,8 @@ def choose_sort(ar):
     count = len(ar)
     for i in range(count):
         min_i = i
-        for j in range(i, count):
-            if ar[j] > ar[min_i]:
+        for j in range(i+1, count):
+            if ar[j] < ar[min_i]:
                 min_i = j
         if min_i != i:
             ar[i], ar[min_i] = ar[min_i], ar[i]
@@ -78,13 +78,33 @@ def choose_sort(ar):
 
 def merge_sort(ar):
     count = len(ar)
-    res = [] * count
-    left = merge_sort(ar[0:count / 2])
-    right = merge_sort(ar[count / 2:count])
+    if count == 1:
+        return ar
+    res = [0] * count
+    left = merge_sort(ar[0: count // 2])
+    right = merge_sort(ar[count // 2: count])
 
-    l, r, k = 0
+    l = r = k = 0
     l_c = len(left)
     r_c = len(right)
+
+    while l < l_c and r < r_c:
+        if left[l] <= right[r]:
+            res[k] = left[l]
+            l += 1
+        else:
+            res[k] = right[r]
+            r += 1
+        k += 1
+    while l < l_c:
+        res[k] = left[l]
+        k += 1
+        l += 1
+    while r < r_c:
+        res[k] = right[r]
+        k += 1
+        r += 1
+    return res
 
 
 def check(ls):
@@ -96,41 +116,54 @@ if __name__ == '__main__':
     res_choose = 0.0
     res_bubble = 0.0
     res_insert = 0.0
-    a = [int(n) for n in
-         '9 18 1 65 51 16 6 43 6 36 7 11 64 5 1 76 15 11 11 15 57 95 3 49 92 78 83 51 10 3'.split()]
-    choose_sort(a)
-    print(a)
-    '9 95 92 83 78 7 76 6 6 65 64 57 5 51 51 49 43 36 3 3 18 16 15 15 11 11 11 1 1 10'
+    res_merge = 0.0
 
-    for _ in range(0, 0):
-        ar1 = [randrange(100) for _ in range(5000)]
+    # a = [int(n) for n in
+    #      '9 4 13 6 2'.split()]
+    # a = [randrange(100) for _ in range(10)]
+    # a = merge_sort_v2(a)
+    # print(a)
+
+    for _ in range(0, 1):
+        ar1 = [randrange(100) for _ in range(10000)]
         ar2 = ar1.copy()
         ar3 = ar2.copy()
+        ar4 = ar3.copy()
 
         # print(ar1)
-        time1 = time.time()
-        choose_sort(ar1)
-        res_choose += time.time() - time1
-        # print(f'choose sort - {time2}')
-        # print(ar1)
-        check(ar1)
+        # time1 = time.time()
+        # choose_sort(ar1)
+        # res_choose += time.time() - time1
+        # # print(f'choose sort - {time2}')
+        # # print(ar1)
+        # check(ar1)
 
         # print(ar2)
-        time1 = time.time()
-        bubble_sort_v3(ar2)
-        res_bubble += time.time() - time1
-        # print(f'bubble sort - {time2}')
-        # print(ar2)
-        check(ar2)
+        # time1 = time.time()
+        # bubble_sort_v3(ar2)
+        # res_bubble += time.time() - time1
+        # # print(f'bubble sort - {time2}')
+        # # print(ar2)
+        # check(ar2)
 
         # ar3 = [11, 2, 9, 7, 1]
         # print(ar3)
+        # time1 = time.time()
+        # insert_sort(ar3)
+        # res_insert += time.time() - time1
+        # # print(f'insert sort - {time2}')
+        # # print(ar3)
+        # check(ar3)
+
+        # print(ar4)
         time1 = time.time()
-        insert_sort(ar3)
-        res_insert += time.time() - time1
+        ar4 = merge_sort_v2(ar4)
+        res_merge += time.time() - time1
         # print(f'insert sort - {time2}')
-        # print(ar3)
-        check(ar3)
-    print(res_choose)
-    print(res_bubble)
-    print(res_insert)
+        # print(ar4)
+        check(ar4)
+
+    # print(res_choose)
+    # print(res_bubble)
+    # print(res_insert)
+    print(res_merge)
