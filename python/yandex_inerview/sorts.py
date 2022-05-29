@@ -107,6 +107,24 @@ def merge_sort(ar):
     return res
 
 
+def quick_sort(ar):
+    size = len(ar)
+    if size == 0 or size == 1:
+        return ar
+    left = []
+    right = []
+    middle = []
+    support = ar[size//2]
+    for el in ar:
+        if el > support:
+            right.append(el)
+        elif el < support:
+            left.append(el)
+        else:
+            middle.append(el)
+    return quick_sort(left) + middle + quick_sort(right)
+
+
 def check(ls):
     for t in zip(ls, ls[1:]):
         assert t[0] <= t[1], f'{t[0]} > {t[1]}'
@@ -117,18 +135,25 @@ if __name__ == '__main__':
     res_bubble = 0.0
     res_insert = 0.0
     res_merge = 0.0
+    res_quick = 0.0
 
-    # a = [int(n) for n in
-    #      '9 4 13 6 2'.split()]
-    # a = [randrange(100) for _ in range(10)]
-    # a = merge_sort_v2(a)
-    # print(a)
+    a = [int(n) for n in
+         '9 4 13 6 2'.split()]
+    # sorted(a, key=lambda i: [99 - i])
+    a.sort()
+    a.reverse()
+    print(a)
+    for i, b in enumerate(a):
+        print(f'{i} - {b}')
 
-    for _ in range(0, 1):
-        ar1 = [randrange(100) for _ in range(10000)]
+
+
+    for _ in range(0, 0):
+        ar1 = [randrange(100) for _ in range(1000)]
         ar2 = ar1.copy()
         ar3 = ar2.copy()
         ar4 = ar3.copy()
+        ar5 = ar4.copy()
 
         # print(ar1)
         # time1 = time.time()
@@ -157,13 +182,22 @@ if __name__ == '__main__':
 
         # print(ar4)
         time1 = time.time()
-        ar4 = merge_sort_v2(ar4)
+        ar4 = merge_sort(ar4)
         res_merge += time.time() - time1
         # print(f'insert sort - {time2}')
         # print(ar4)
         check(ar4)
 
+        # print(ar5)
+        time1 = time.time()
+        ar5 = quick_sort(ar5)
+        res_quick += time.time() - time1
+        # print(f'quick sort - {time2}')
+        # print(ar5)
+        check(ar5)
+
     # print(res_choose)
     # print(res_bubble)
     # print(res_insert)
     print(res_merge)
+    print(res_quick)
