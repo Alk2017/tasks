@@ -49,7 +49,7 @@ class MyProg:
 
 
 def run(data=None):
-    # file_in = open('input.txt', 'r')
+    # file_in = open('input_resource.txt', 'r')
     # file_out = open('output.txt', 'a')
     pr = MyProg()
     count = int(input()) if data is None else len(data)

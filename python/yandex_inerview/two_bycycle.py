@@ -50,7 +50,7 @@ def find_first(left, right, nums, cost):
 
 
 if __name__ == '__main__':
-    # f = open('input.txt', 'r')
+    # f = open('input_resource.txt', 'r')
     # count = int(f.readline())
     # nums = [int(i) for i in f.readline().split()]
     # cost = int(f.readline())
