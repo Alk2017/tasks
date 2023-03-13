@@ -1,11 +1,22 @@
 package ru.alk;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Main {
-    interface Foo {
-        int i = 10;
-    }
+
     public static void main(String[] args) {
-        Foo.i = 20;
-        System.out.println("Hello");
+        List a = new ArrayList<String>();
+        a.add("f");
+        a.add("g");
+        System.out.println(a.get(0).toString());
     }
+
+
+    abstract class A {
+        public A(int A) {
+
+        }
+    }
+
 }

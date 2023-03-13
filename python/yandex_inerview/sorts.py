@@ -130,55 +130,90 @@ def check(ls):
         assert t[0] <= t[1], f'{t[0]} > {t[1]}'
 
 
+# Pyramid sort =================
+def swap(ls, i1, i2):
+    ls[i1], ls[i2] = ls[i2], ls[i1]
+
+
+def max_ch(ls, i, last_i):
+    # last_i = len(ls) - 1
+    lf_ch_i = 2 * i + 1
+    rt_ch_i = 2 * i + 2
+    if last_i < lf_ch_i:
+        return -1
+    elif last_i == lf_ch_i:
+        return lf_ch_i
+    elif ls[lf_ch_i] > ls[rt_ch_i]:
+        return lf_ch_i
+    else:
+        return rt_ch_i
+
+
+def sifting_down(ls, i, last_i):
+    # last_i = len(ls) - 1
+    max_ch_i = max_ch(ls, i, last_i)
+    while ls[i] < ls[max_ch_i] and max_ch_i != -1:
+        swap(ls, i, max_ch_i)
+        i = max_ch_i
+        max_ch_i = max_ch(ls, i, last_i)
+
+
+def pyramid_sort(ls):
+    last_i = len(ls) - 1
+    last_unsort = (last_i - 1) // 2
+    while last_unsort >= 0:
+        sifting_down(ls, last_unsort, last_i)
+        last_unsort -= 1
+    # print(ls)
+    while last_i > 0:
+        swap(ls, 0, last_i)
+        last_i -= 1
+        sifting_down(ls, 0, last_i)
+        # print(ls)
+
+# =========================================
+
+
 if __name__ == '__main__':
     res_choose = 0.0
     res_bubble = 0.0
     res_insert = 0.0
     res_merge = 0.0
     res_quick = 0.0
+    res_pyramid = 0.0
 
-    a = [int(n) for n in
-         '9 4 13 6 2'.split()]
-    # sorted(a, key=lambda i: [99 - i])
-    a.sort()
-    a.reverse()
-    print(a)
-    for i, b in enumerate(a):
-        print(f'{i} - {b}')
-
-
-
-    for _ in range(0, 0):
-        ar1 = [randrange(100) for _ in range(1000)]
+    for _ in range(0, 1):
+        ar1 = [randrange(100) for _ in range(10000)]
         ar2 = ar1.copy()
         ar3 = ar2.copy()
         ar4 = ar3.copy()
         ar5 = ar4.copy()
+        ar6 = ar5.copy()
 
         # print(ar1)
-        # time1 = time.time()
-        # choose_sort(ar1)
-        # res_choose += time.time() - time1
-        # # print(f'choose sort - {time2}')
-        # # print(ar1)
-        # check(ar1)
+        time1 = time.time()
+        choose_sort(ar1)
+        res_choose += time.time() - time1
+        # print(f'choose sort - {time2}')
+        # print(ar1)
+        check(ar1)
 
         # print(ar2)
-        # time1 = time.time()
-        # bubble_sort_v3(ar2)
-        # res_bubble += time.time() - time1
-        # # print(f'bubble sort - {time2}')
-        # # print(ar2)
-        # check(ar2)
+        time1 = time.time()
+        bubble_sort_v3(ar2)
+        res_bubble += time.time() - time1
+        # print(f'bubble sort - {time2}')
+        # print(ar2)
+        check(ar2)
 
         # ar3 = [11, 2, 9, 7, 1]
         # print(ar3)
-        # time1 = time.time()
-        # insert_sort(ar3)
-        # res_insert += time.time() - time1
-        # # print(f'insert sort - {time2}')
-        # # print(ar3)
-        # check(ar3)
+        time1 = time.time()
+        insert_sort(ar3)
+        res_insert += time.time() - time1
+        # print(f'insert sort - {time2}')
+        # print(ar3)
+        check(ar3)
 
         # print(ar4)
         time1 = time.time()
@@ -196,8 +231,19 @@ if __name__ == '__main__':
         # print(ar5)
         check(ar5)
 
-    # print(res_choose)
-    # print(res_bubble)
-    # print(res_insert)
+        # print(ar6)
+        time1 = time.time()
+        pyramid_sort(ar6)
+        res_pyramid += time.time() - time1
+        # print(ar6)
+        check(ar6)
+
+
+
+
+    print(res_choose)
+    print(res_bubble)
+    print(res_insert)
     print(res_merge)
     print(res_quick)
+    print(res_pyramid)
