@@ -12,4 +12,4 @@ if __name__ == '__main__':
 
     ls.remove(2)
     del ls[-1]
-    print(ls)
+    print(ls.reverse())
